@@ -1,0 +1,20 @@
+services:
+  postgres:
+    container_name: pglmsdb
+    image: postgres:13
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pg_lms_user
+      POSTGRES_PASSWORD: lms123
+      POSTGRES_DB: library
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
+networks:
+  it-network:
+    driver: bridge
