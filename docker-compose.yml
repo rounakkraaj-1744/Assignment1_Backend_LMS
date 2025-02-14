@@ -1,20 +1,19 @@
+version: '3.8'
+
 services:
   postgres:
-    container_name: pglmsdb
-    image: postgres:13
-    restart: unless-stopped
+    image: postgres:16
+    container_name: lms_postgres
     environment:
-      POSTGRES_USER: pg_lms_user
-      POSTGRES_PASSWORD: lms123
-      POSTGRES_DB: library
+      POSTGRES_USER: lms_user
+      POSTGRES_PASSWORD: lms_password
+      POSTGRES_DB: lms_db
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: always
 
 volumes:
   postgres_data:
-
-networks:
-  it-network:
-    driver: bridge
+    driver: local
