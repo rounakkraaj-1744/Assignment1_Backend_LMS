@@ -6,5 +6,6 @@ export class CreateBookDto {
 
     @IsInt()
     authorId: number
+  name: any;
 }
 
