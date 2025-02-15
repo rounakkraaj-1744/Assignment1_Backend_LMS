@@ -30,15 +30,5 @@ model Category {
 model Library {
   id          Int     @id @default(autoincrement())
   name        String
-  address     Address @relation(fields: [addressId], references: [id])
-  addressId   Int   @unique
-}
-
-model Address {
-  id      Int     @id @default(autoincrement())
-  street  String
-  city    String
-  zipCode String
-
-  Library Library[]
+  address     String
 }
