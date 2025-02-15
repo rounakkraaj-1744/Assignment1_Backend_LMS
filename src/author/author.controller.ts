@@ -1,34 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { AuthorService } from './author.service';
-import { CreateAuthorDto } from './dto/create-author.dto';
-import { UpdateAuthorDto } from './dto/update-author.dto';
+import { Controller, Post, Get, Body } from '@nestjs/common';
+import { PrismaService } from 'prisma/prisma.service';
 
-@Controller('author')
+@Controller('authors')
 export class AuthorController {
-  constructor(private readonly authorService: AuthorService) {}
+  constructor(private prisma: PrismaService) {}
 
   @Post()
-  create(@Body() createAuthorDto: CreateAuthorDto) {
-    return this.authorService.create(createAuthorDto);
+  async createAuthor(@Body() data: { name: string }) {
+    return this.prisma.author.create({ data });
   }
 
   @Get()
-  findAll() {
-    return this.authorService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authorService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthorDto: UpdateAuthorDto) {
-    return this.authorService.update(+id, updateAuthorDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authorService.remove(+id);
+  async getAllAuthors() {
+    return this.prisma.author.findMany();
   }
 }

@@ -3,10 +3,11 @@ import { CategoryModule } from './category/category.module';
 import { AuthorModule } from './author/author.module';
 import { BookModule } from './book/book.module';
 import { LibraryModule } from './library/library.module';
+import { PrismaService } from 'prisma/prisma.service';
 
 @Module({
   imports: [CategoryModule, AuthorModule, BookModule, LibraryModule],
   controllers: [],
-  providers: [],
+  providers: [PrismaService],
 })
 export class AppModule {}

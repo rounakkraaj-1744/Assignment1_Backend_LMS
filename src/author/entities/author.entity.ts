@@ -1,1 +1,4 @@
-export class Author {}
+export class Author {
+    name:string
+    books:string[]
+}
