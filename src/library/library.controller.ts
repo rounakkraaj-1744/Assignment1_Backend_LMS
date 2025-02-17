@@ -1,18 +1,33 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { LibraryService } from './library.service';
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { PrismaService } from 'prisma/prisma.service';
 import { CreateLibraryDto } from './dto/create-library.dto';
 
-@Controller('library')
+@Controller('libraries')
 export class LibraryController {
-  constructor(private readonly libraryService: LibraryService) {}
+  constructor(private prisma: PrismaService) {}
 
   @Post()
-  create(@Body() createLibraryDto: CreateLibraryDto) {
-    return this.libraryService.create(createLibraryDto);
+  create(@Body() data: CreateLibraryDto) {
+    return this.prisma.library.create({
+      data: {
+        name: data.name,
+        address: {
+          create: {
+            street: data.address.street,
+            city: data.address.city,
+            country: data.address.country,
+          },
+        },
+      },
+    });
   }
 
   @Get()
   findAll() {
-    return this.libraryService.findAll();
+    return this.prisma.library.findMany({
+      include: {
+        address: true,
+      },
+    });
   }
 }

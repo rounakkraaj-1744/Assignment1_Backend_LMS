@@ -1,4 +1,7 @@
+import { Book } from "src/book/entities/book.entity";
+
 export class Author {
-    name:string
-    books:string[]
-}
+    id: number;
+    name: string;
+    books: Book[];
+  }

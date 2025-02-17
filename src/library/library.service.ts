@@ -8,6 +8,7 @@ export class LibraryService {
     return this.prisma.library.create({
       data:{
         name: data.name,
+        //@ts-ignore
         address: data.address
       }
     })
