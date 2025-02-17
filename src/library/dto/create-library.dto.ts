@@ -1,5 +1,15 @@
 import { IsString } from 'class-validator';
-import { AddressDto } from 'src/address/dto/create-address.dto';
+
+class AddressDto {
+  @IsString()
+  street: string;
+
+  @IsString()
+  city: string;
+
+  @IsString()
+  country: string;
+}
 
 export class CreateLibraryDto {
   @IsString()
