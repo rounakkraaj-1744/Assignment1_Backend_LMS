@@ -1,7 +1,6 @@
-import { Body, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { CreateBookDto } from './dto/create-book.dto';
-
 
 @Injectable()
 export class BookService {
@@ -9,14 +8,30 @@ export class BookService {
 
   async createBook(data: CreateBookDto) {
     return this.prisma.book.create({
-      data:{
+      data: {
         title: data.title,
-        authorId: data.authorId
-      }
-    })
+        authors: {
+          create: data.authorIds.map((authorId) => ({
+            author: { connect: { id: authorId } },
+          })),
+        },
+      },
+      include: {
+        authors: {
+          include: {
+            author: true,
+          },
+        },
+      },
+    });
   }
+  
 
   async getAllBooks() {
-    return this.prisma.book.findMany();
+    return this.prisma.book.findMany({
+      include: {
+        authors: true,
+      },
+    });
   }
 }

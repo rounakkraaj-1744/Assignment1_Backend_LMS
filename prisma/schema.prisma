@@ -26,7 +26,7 @@ model BookAuthor {
   book      Book       @relation(fields: [bookId], references: [id], onDelete: Cascade)
   author    Author     @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  @@id([bookId, authorId]) // Composite primary key
+  @@id([bookId, authorId])
 }
 
 
