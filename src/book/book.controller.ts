@@ -7,6 +7,7 @@ import { CreateBookDto } from './dto/create-book.dto';
 export class BookController {
   constructor(private prisma: PrismaService) {}
 
+  //below is the code for the book containing only onw author
   @Post()
   async createBook(@Body() data: CreateBookDto) {
     return this.prisma.book.create({

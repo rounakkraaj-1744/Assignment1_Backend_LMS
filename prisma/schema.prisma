@@ -10,16 +10,25 @@ datasource db {
 model Author {
   id    Int     @id @default(autoincrement())
   name  String
-  books Book[]
+  books BookAuthor[] 
 }
 
 model Book {
-  id          Int        @id @default(autoincrement())
-  title       String
-  authorId    Int
-  author      Author     @relation(fields: [authorId], references: [id])
-  categories  Category[] @relation("BookCategories")
+  id            Int           @id @default(autoincrement())
+  title         String
+  authors       BookAuthor[] 
+  categories    Category[]    @relation("BookCategories")
 }
+
+model BookAuthor {
+  bookId    Int
+  authorId  Int
+  book      Book       @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  author    Author     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@id([bookId, authorId]) // Composite primary key
+}
+
 
 model Category {
   id        Int    @id @default(autoincrement())

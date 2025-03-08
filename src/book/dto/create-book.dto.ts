@@ -1,11 +1,11 @@
-import { IsInt, IsString } from "class-validator";
+import { IsInt, IsString, IsArray, ArrayNotEmpty } from "class-validator";
 
 export class CreateBookDto {
-    @IsString()
-    title: string
+  @IsString()
+  title: string;
 
-    @IsInt()
-    authorId: number
-  name: any;
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsInt({ each: true })
+  authorIds: number[];
 }
-
